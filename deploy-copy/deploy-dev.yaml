@@ -1,0 +1,18 @@
+apiVersion: run.googleapis.com/v1
+kind: Job
+metadata:
+  labels:
+    delivery-pipeline-id: my-run-demo-app-1
+    location: us-central1
+    managed-by: google-cloud-deploy
+    project-id: ageless-slate-442502-t7
+    release-id: app-release-186cf43
+    target-id: run-qsprod
+  name: deploy-run-job-prod
+spec:
+  template:
+    spec:
+      template:
+        spec:
+          containers:
+            - image: gcr.io/ageless-slate-442502-t7/my-dummy-app:186cf43ab775e9cbf0abc279db7316a293906d22
