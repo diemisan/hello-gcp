@@ -8,4 +8,4 @@ spec:
       template:
         spec:
           containers:
-          - image: my-app-image
+          - image: gcr.io/the-training/hello-gcp:0.1
