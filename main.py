@@ -11,6 +11,7 @@ TASK_ATTEMPT = os.getenv("CLOUD_RUN_TASK_ATTEMPT", 0)
 SLEEP_MS = os.getenv("SLEEP_MS", 0)
 FAIL_RATE = os.getenv("FAIL_RATE", 0)
 
+
 # Define main script
 def main(sleep_ms=0, fail_rate=0):
     """Program that simulates work using the sleep method and random failures.
