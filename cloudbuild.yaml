@@ -1,4 +1,15 @@
 steps:
+
+# Install dependencies
+- name: python
+  entrypoint: pip
+  args: ["install", "-r", "requirements.txt", "--user"]
+
+# Run unit tests
+- name: python
+  entrypoint: python
+  args: ["-m", "pytest", "--junitxml=${SHORT_SHA}_test_log.xml"] 
+
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/hello-gcp:$COMMIT_SHA', '.']
