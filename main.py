@@ -48,6 +48,9 @@ def random_failure(rate):
     if random_failure < rate:
         raise Exception("Task failed.")
 
+def dummy(input):
+   return input
+
 
 # Start script
 if __name__ == "__main__":
