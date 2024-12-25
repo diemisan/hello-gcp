@@ -30,7 +30,6 @@ steps:
     - |
       # Variables
       #SCHEDULER_JOB_NAME="hello-gcp-scheduler-job"
-      SERVICE_ACCOUNT="diego-sa@the-training.iam.gserviceaccount.com"
       SCHEDULE="$_SCHEDULE"
             
       # Check if the job exists
@@ -43,7 +42,7 @@ steps:
           --uri $_TARGET_URL \
           --http-method "$_HTTP_METHOD" \
           --location us-central1 \
-          --oauth-service-account-email "$SERVICE_ACCOUNT"
+          --oauth-service-account-email "$_SERVICE_ACCOUNT"
       else
         echo "Creating new scheduler job... $_SCHEDULE  $SERVICE_ACCOUNT"
         gcloud scheduler jobs create http \
@@ -53,7 +52,7 @@ steps:
           --uri "$_TARGET_URL" \
           --http-method "$_HTTP_METHOD" \
           --location us-central1 \
-          --oauth-service-account-email "$SERVICE_ACCOUNT"
+          --oauth-service-account-email "$_SERVICE_ACCOUNT"
       fi
 
 
@@ -64,6 +63,7 @@ substitutions:
   _SCHEDULE: '* * * * *'
   _TIMEZONE: 'UTC'
   _HTTP_METHOD: 'POST'
+  _SERVICE_ACCOUNT: 'diego-sa@the-training.iam.gserviceaccount.com'
 
 images:
 - gcr.io/$PROJECT_ID/hello-gcp:$COMMIT_SHA
