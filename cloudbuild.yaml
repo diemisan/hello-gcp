@@ -30,7 +30,6 @@ steps:
     - |
       # Variables
       #SCHEDULER_JOB_NAME="hello-gcp-scheduler-job"
-      TARGET_URL=https://us-central1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/the-training/jobs/deploy-run-job-dev:run
       SERVICE_ACCOUNT="diego-sa@the-training.iam.gserviceaccount.com"
       SCHEDULE="$_SCHEDULE"
             
@@ -41,7 +40,7 @@ steps:
           "hello-gcp-scheduler-job" \
           --schedule "$_SCHEDULE" \
           --time-zone "$_TIMEZONE" \
-          --uri $TARGET_URL \
+          --uri $_TARGET_URL \
           --http-method "$_HTTP_METHOD" \
           --oauth-service-account-email "$SERVICE_ACCOUNT"
       else
@@ -50,7 +49,7 @@ steps:
           "hello-gcp-scheduler-job" \
           --schedule "$_SCHEDULE" \
           --time-zone "$_TIMEZONE" \
-          --uri "$TARGET_URL" \
+          --uri "$_TARGET_URL" \
           --http-method "$_HTTP_METHOD" \
           --oauth-service-account-email "$SERVICE_ACCOUNT"
       fi
@@ -59,6 +58,7 @@ steps:
 timeout: '600s'
 
 substitutions:
+  _TARGET_URL: https://us-central1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/the-training/jobs/deploy-run-job-dev:run
   _SCHEDULE: '* * * * *'
   _TIMEZONE: 'UTC'
   _HTTP_METHOD: 'POST'
