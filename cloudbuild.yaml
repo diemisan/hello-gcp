@@ -61,7 +61,7 @@ steps:
 timeout: '600s'
 
 substitutions:
-  _SCHEDULE: "* * * * *"
+  _SCHEDULE: '* * * * *'
 
 images:
 - gcr.io/$PROJECT_ID/hello-gcp:$COMMIT_SHA
