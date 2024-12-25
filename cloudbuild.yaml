@@ -60,8 +60,8 @@ timeout: '600s'
 
 substitutions:
   _SCHEDULE: '* * * * *'
-  _TIMEZONE: "UTC"
-  _HTTP_METHOD: "POST"
+  _TIMEZONE: 'UTC'
+  _HTTP_METHOD: 'POST'
 
 images:
 - gcr.io/$PROJECT_ID/hello-gcp:$COMMIT_SHA
