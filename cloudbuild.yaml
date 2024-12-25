@@ -45,7 +45,7 @@ steps:
           --location us-central1 \
           --oauth-service-account-email "$SERVICE_ACCOUNT"
       else
-        echo "Creating new scheduler job..."
+        echo "Creating new scheduler job... $_SCHEDULE  $SERVICE_ACCOUNT"
         gcloud scheduler jobs create http \
           "hello-gcp-scheduler-job" \
           --schedule "$_SCHEDULE" \
