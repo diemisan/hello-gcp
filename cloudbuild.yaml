@@ -41,7 +41,7 @@ steps:
           "hello-gcp-scheduler-job" \
           --schedule "$_SCHEDULE" \
           --time-zone "$_TIMEZONE" \
-          --uri "$TARGET_URL" \
+          --uri $TARGET_URL \
           --http-method "$_HTTP_METHOD" \
           --oauth-service-account-email "$SERVICE_ACCOUNT"
       else
