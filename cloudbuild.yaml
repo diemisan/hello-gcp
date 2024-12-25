@@ -32,7 +32,7 @@ steps:
       #SCHEDULER_JOB_NAME="hello-gcp-scheduler-job"
       TARGET_URL="https://us-central1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/the-training/jobs/deploy-run-job-dev:run"
       SERVICE_ACCOUNT="diego-sa@the-training.iam.gserviceaccount.com"
-      SCHEDULE="* * * * *"  # Every minute
+      SCHEDULE=${_SCHEDULE}
       TIMEZONE="UTC"
       HTTP_METHOD="POST"
       
@@ -59,6 +59,9 @@ steps:
 
 
 timeout: '600s'
+
+substitutions:
+  _SCHEDULE: "* * * * *"
 
 images:
 - gcr.io/$PROJECT_ID/hello-gcp:$COMMIT_SHA
