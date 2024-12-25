@@ -42,6 +42,7 @@ steps:
           --time-zone "$_TIMEZONE" \
           --uri $_TARGET_URL \
           --http-method "$_HTTP_METHOD" \
+          --location us-central1 \
           --oauth-service-account-email "$SERVICE_ACCOUNT"
       else
         echo "Creating new scheduler job..."
@@ -51,6 +52,7 @@ steps:
           --time-zone "$_TIMEZONE" \
           --uri "$_TARGET_URL" \
           --http-method "$_HTTP_METHOD" \
+          --location us-central1 \
           --oauth-service-account-email "$SERVICE_ACCOUNT"
       fi
 
