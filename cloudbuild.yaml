@@ -41,7 +41,7 @@ steps:
         echo "Updating existing scheduler job..."
         gcloud scheduler jobs update http \
           "hello-gcp-scheduler-job" \
-          --schedule "$SCHEDULE" \
+          --schedule "$_SCHEDULE" \
           --time-zone "$TIMEZONE" \
           --uri "$TARGET_URL" \
           --http-method "$HTTP_METHOD" \
@@ -50,7 +50,7 @@ steps:
         echo "Creating new scheduler job..."
         gcloud scheduler jobs create http \
           "hello-gcp-scheduler-job" \
-          --schedule "$SCHEDULE" \
+          --schedule "$_SCHEDULE" \
           --time-zone "$TIMEZONE" \
           --uri "$TARGET_URL" \
           --http-method "$HTTP_METHOD" \
