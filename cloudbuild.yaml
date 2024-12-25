@@ -33,9 +33,7 @@ steps:
       TARGET_URL="https://us-central1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/the-training/jobs/deploy-run-job-dev:run"
       SERVICE_ACCOUNT="diego-sa@the-training.iam.gserviceaccount.com"
       SCHEDULE="$_SCHEDULE"
-      TIMEZONE="UTC"
-      HTTP_METHOD="POST"
-      
+            
       # Check if the job exists
       if gcloud scheduler jobs describe "hello-gcp-scheduler-job" --quiet; then
         echo "Updating existing scheduler job..."
@@ -44,16 +42,16 @@ steps:
           --schedule "$_SCHEDULE" \
           --time-zone "$TIMEZONE" \
           --uri "$TARGET_URL" \
-          --http-method "$HTTP_METHOD" \
+          --http-method "$_HTTP_METHOD" \
           --oauth-service-account-email "$SERVICE_ACCOUNT"
       else
         echo "Creating new scheduler job..."
         gcloud scheduler jobs create http \
           "hello-gcp-scheduler-job" \
           --schedule "$_SCHEDULE" \
-          --time-zone "$TIMEZONE" \
+          --time-zone "$_TIMEZONE" \
           --uri "$TARGET_URL" \
-          --http-method "$HTTP_METHOD" \
+          --http-method "$_HTTP_METHOD" \
           --oauth-service-account-email "$SERVICE_ACCOUNT"
       fi
 
@@ -62,6 +60,8 @@ timeout: '600s'
 
 substitutions:
   _SCHEDULE: '* * * * *'
+  _TIMEZONE: "UTC"
+  _HTTP_METHOD: "POST"
 
 images:
 - gcr.io/$PROJECT_ID/hello-gcp:$COMMIT_SHA
