@@ -40,7 +40,7 @@ steps:
       if gcloud scheduler jobs describe "$SCHEDULER_JOB_NAME" --quiet; then
         echo "Updating existing scheduler job..."
         gcloud scheduler jobs update http \
-          "$SCHEDULER_JOB_NAME" \
+          "hello-gcp-scheduler-job" \
           --schedule "$SCHEDULE" \
           --time-zone "$TIMEZONE" \
           --uri "$TARGET_URL" \
@@ -49,7 +49,7 @@ steps:
       else
         echo "Creating new scheduler job..."
         gcloud scheduler jobs create http \
-          "$SCHEDULER_JOB_NAME" \
+          "hello-gcp-scheduler-job" \
           --schedule "$SCHEDULE" \
           --time-zone "$TIMEZONE" \
           --uri "$TARGET_URL" \
