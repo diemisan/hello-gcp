@@ -23,5 +23,49 @@ steps:
 images:
 - gcr.io/$PROJECT_ID/hello-gcp:$COMMIT_SHA
 
+
+# Step to create or update a Cloud Scheduler job
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      # Variables
+      SCHEDULER_JOB_NAME="my-scheduler-job"
+      SCHEDULE="* * * * *"  # Every minute
+      TIMEZONE="UTC"
+      TARGET_URL="https://your-job-endpoint"
+      HTTP_METHOD="POST"
+      
+      # Check if the job exists
+      if gcloud scheduler jobs describe "$SCHEDULER_JOB_NAME" --quiet; then
+        echo "Updating existing scheduler job..."
+        gcloud scheduler jobs update http \
+          "$SCHEDULER_JOB_NAME" \
+          --schedule "$SCHEDULE" \
+          --time-zone "$TIMEZONE" \
+          --uri "$TARGET_URL" \
+          --http-method "$HTTP_METHOD" \
+          --oauth-service-account-email "$SERVICE_ACCOUNT"
+      else
+        echo "Creating new scheduler job..."
+        gcloud scheduler jobs create http \
+          "$SCHEDULER_JOB_NAME" \
+          --schedule "$SCHEDULE" \
+          --time-zone "$TIMEZONE" \
+          --uri "$TARGET_URL" \
+          --http-method "$HTTP_METHOD" \
+          --oauth-service-account-email "$SERVICE_ACCOUNT"
+      fi
+
+# Specify any needed substitutions, service accounts, etc.
+substitutions:
+  _SCHEDULER_JOB_NAME: hello-gcp-scheduler-job
+  _TARGET_URL: https://us-central1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/the-training/jobs/deploy-run-job-dev:run
+  _SERVICE_ACCOUNT: diego-sa@the-training.iam.gserviceaccount.com
+
+timeout: '600s'
+
+
 options:
   logging: CLOUD_LOGGING_ONLY
