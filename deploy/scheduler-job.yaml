@@ -9,4 +9,5 @@ resources:
     httpTarget:
       uri: $_TARGET_URL
       httpMethod: POST
-      serviceAccount: $_SERVICE_ACCOUNT
+    oAuthToken:
+      serviceAccountEmail: $_SERVICE_ACCOUNT
