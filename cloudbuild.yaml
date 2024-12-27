@@ -22,39 +22,48 @@ steps:
 #   args: ['run', 'deploy', 'SERVICE_NAME', '--image', 'gcr.io/$PROJECT_ID/IMAGE', '--region', 'SERVICE_REGION']
 
 
-# Step to create or update a Cloud Scheduler job
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - |
-      # Variables
-      #SCHEDULER_JOB_NAME="hello-gcp-scheduler-job"
-      SCHEDULE="$_SCHEDULE"
+# # Step to create or update a Cloud Scheduler job
+# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#   entrypoint: 'bash'
+#   args:
+#     - '-c'
+#     - |
+#       # Variables
+#       #SCHEDULER_JOB_NAME="hello-gcp-scheduler-job"
+#       SCHEDULE="$_SCHEDULE"
             
-      # Check if the job exists
-      if gcloud scheduler jobs describe "hello-gcp-scheduler-job" --quiet; then
-        echo "Updating existing scheduler job..."
-        gcloud scheduler jobs update http \
-          "hello-gcp-scheduler-job" \
-          --schedule "$_SCHEDULE" \
-          --time-zone "$_TIMEZONE" \
-          --uri $_TARGET_URL \
-          --http-method "$_HTTP_METHOD" \
-          --location us-central1 \
-          --oauth-service-account-email "$_SERVICE_ACCOUNT"
-      else
-        echo "Creating new scheduler job... $_SCHEDULE  $SERVICE_ACCOUNT"
-        gcloud scheduler jobs create http \
-          "hello-gcp-scheduler-job" \
-          --schedule "$_SCHEDULE" \
-          --time-zone "$_TIMEZONE" \
-          --uri "$_TARGET_URL" \
-          --http-method "$_HTTP_METHOD" \
-          --location us-central1 \
-          --oauth-service-account-email "$_SERVICE_ACCOUNT"
-      fi
+#       # Check if the job exists
+#       if gcloud scheduler jobs describe "hello-gcp-scheduler-job" --quiet; then
+#         echo "Updating existing scheduler job..."
+#         gcloud scheduler jobs update http \
+#           "hello-gcp-scheduler-job" \
+#           --schedule "$_SCHEDULE" \
+#           --time-zone "$_TIMEZONE" \
+#           --uri $_TARGET_URL \
+#           --http-method "$_HTTP_METHOD" \
+#           --location us-central1 \
+#           --oauth-service-account-email "$_SERVICE_ACCOUNT"
+#       else
+#         echo "Creating new scheduler job... $_SCHEDULE  $SERVICE_ACCOUNT"
+#         gcloud scheduler jobs create http \
+#           "hello-gcp-scheduler-job" \
+#           --schedule "$_SCHEDULE" \
+#           --time-zone "$_TIMEZONE" \
+#           --uri "$_TARGET_URL" \
+#           --http-method "$_HTTP_METHOD" \
+#           --location us-central1 \
+#           --oauth-service-account-email "$_SERVICE_ACCOUNT"
+#       fi
 
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args:
+  - 'gcloud'
+  - 'deployment-manager'
+  - 'deployments'
+  - 'create'
+  - 'my-deployment'
+  - '--config=deploy/scheduler-job.yaml'
 
 timeout: '600s'
 

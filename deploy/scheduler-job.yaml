@@ -1,0 +1,12 @@
+resources:
+- name: my-cloud-scheduler-job
+  type: gcp-types/cloudscheduler-v1:projects.locations.jobs
+  properties:
+    parent: projects/$PROJECT_ID/locations/us-central1
+    name: my-scheduler-job
+    schedule: $_SCHEDULE
+    timeZone: "UTC"
+    httpTarget:
+      uri: $_TARGET_URL
+      httpMethod: POST
+      serviceAccount: $_SERVICE_ACCOUNT
