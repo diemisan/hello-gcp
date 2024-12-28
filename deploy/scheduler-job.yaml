@@ -4,10 +4,10 @@ resources:
   properties:
     parent: projects/$PROJECT_ID/locations/us-central1
     name: my-scheduler-job
-    schedule: $_SCHEDULE
+    schedule: '* * * * *'
     timeZone: "UTC"
     httpTarget:
-      uri: $_TARGET_URL
+      uri: https://us-central1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/the-training/jobs/deploy-run-job-dev:run
       httpMethod: POST
     oAuthToken:
-      serviceAccountEmail: $_SERVICE_ACCOUNT
+      serviceAccountEmail: 'diego-sa@the-training.iam.gserviceaccount.com'
