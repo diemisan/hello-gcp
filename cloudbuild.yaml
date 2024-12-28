@@ -61,8 +61,8 @@ steps:
   - 'gcloud'
   - 'deployment-manager'
   - 'deployments'
-  - 'create'
-  - 'my-deployment-2'
+  - 'update'
+  - 'my-deployment'
   - '--config=deploy/scheduler-job.yaml'
 
 timeout: '600s'
