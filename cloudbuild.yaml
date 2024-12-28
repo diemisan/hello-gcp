@@ -62,7 +62,7 @@ steps:
   - 'deployment-manager'
   - 'deployments'
   - 'create'
-  - 'my-deployment'
+  - 'my-deployment-2'
   - '--config=deploy/scheduler-job.yaml'
 
 timeout: '600s'
