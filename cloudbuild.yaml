@@ -71,17 +71,15 @@ steps:
   args:
     - '-c'
     - |
-      DEPLOYMENT_NAME="my-deployment"
-      CONFIG_FILE="deploy/scheduler-job.yaml"
 
       # Check if the deployment exists
-      if gcloud deployment-manager deployments describe $DEPLOYMENT_NAME &>/dev/null; then
+      if gcloud deployment-manager deployments describe my-deployment &>/dev/null; then
           echo "Deployment exists. Recreating it..."
-          gcloud deployment-manager deployments delete $DEPLOYMENT_NAME --quiet
+          gcloud deployment-manager deployments delete my-deployment --quiet
       fi
 
-      echo "Creating deployment: $DEPLOYMENT_NAME"
-      gcloud deployment-manager deployments create $DEPLOYMENT_NAME --config $CONFIG_FILE
+      echo "Creating deployment: my-deployment"
+      gcloud deployment-manager deployments create my-deployment --config deploy/scheduler-job.yaml
 
 
 
