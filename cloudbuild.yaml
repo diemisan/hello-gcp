@@ -56,15 +56,36 @@ steps:
 #       fi
 
 
+# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#   args:
+#   - 'gcloud'
+#   - 'deployment-manager'
+#   - 'deployments'
+#   - 'update'
+#   - 'my-deployment'
+#   - '--config=deploy/scheduler-job.yaml'
+
+
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
   args:
-  - 'gcloud'
-  - 'deployment-manager'
-  - 'deployments'
-  - 'create'
-  - 'my-deployment'
-  - '--recreate'
-  - '--config=deploy/scheduler-job.yaml'
+    - '-c'
+    - |
+      DEPLOYMENT_NAME="my-deployment"
+      CONFIG_FILE="deploy/scheduler-job.yaml"
+
+      # Check if the deployment exists
+      if gcloud deployment-manager deployments describe $DEPLOYMENT_NAME &>/dev/null; then
+          echo "Deployment exists. Recreating it..."
+          gcloud deployment-manager deployments delete $DEPLOYMENT_NAME --quiet
+      fi
+
+      echo "Creating deployment: $DEPLOYMENT_NAME"
+      gcloud deployment-manager deployments create $DEPLOYMENT_NAME --config $CONFIG_FILE
+
+
+
+
 
 timeout: '600s'
 
