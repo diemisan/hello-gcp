@@ -1,7 +1,6 @@
 resources:
 - name: my-cloud-scheduler-job
   type: gcp-types/cloudscheduler-v1:projects.locations.jobs
-  action: upsert
   properties:
     parent: projects/the-training/locations/us-central1
     name: my-scheduler-job
