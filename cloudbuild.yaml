@@ -78,9 +78,7 @@ steps:
           gcloud deployment-manager deployments delete my-deployment --quiet
       fi
 
-      echo "Creating deployment: my-deployment"
-      envsubst < deploy/scheduler-job.yaml > processed-scheduler-job.yaml
-      echo | cat processed-scheduler-job.yaml
+      echo "Creating deployment: my-deployment"      
       gcloud deployment-manager deployments create my-deployment --config processed-scheduler-job.yaml
 
 
