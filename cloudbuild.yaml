@@ -80,6 +80,7 @@ steps:
 
       echo "Creating deployment: my-deployment"
       envsubst < deploy/scheduler-job.yaml > processed-scheduler-job.yaml
+      echo | cat processed-scheduler-job.yaml
       gcloud deployment-manager deployments create my-deployment --config processed-scheduler-job.yaml
 
 
