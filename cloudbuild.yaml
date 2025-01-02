@@ -79,7 +79,7 @@ steps:
       fi
 
       echo "Creating deployment: my-deployment"      
-      gcloud deployment-manager deployments create my-deployment --config processed-scheduler-job.yaml
+      gcloud deployment-manager deployments create my-deployment --config deploy/scheduler-job.yaml
 
 
 
