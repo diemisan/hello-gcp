@@ -1,7 +1,7 @@
 apiVersion: skaffold/v4beta7
 kind: Config
 metadata: 
-  name: deploy-run-quickstart
+  name: deploy-run-demo
 profiles:
 - name: dev
   manifests:

@@ -13,9 +13,11 @@ steps:
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/hello-gcp:$COMMIT_SHA', '.']
+
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/hello-gcp:$COMMIT_SHA']
+
 # Deploy container image to Cloud Run
 # - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #   entrypoint: gcloud
@@ -66,31 +68,30 @@ steps:
 #   - '--config=deploy/scheduler-job.yaml'
 
 
-- name: gcr.io/cloud-builders/gcloud
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - |
+# - name: gcr.io/cloud-builders/gcloud
+#   entrypoint: 'bash'
+#   args:
+#     - '-c'
+#     - |
 
-      # Check if the deployment exists
-      if gcloud deployment-manager deployments describe my-deployment &>/dev/null; then
-          echo "Deployment exists. Recreating it..."
-          gcloud deployment-manager deployments delete my-deployment --quiet
-      fi
+#       # Check if the deployment exists
+#       if gcloud deployment-manager deployments describe my-deployment &>/dev/null; then
+#           echo "Deployment exists. Recreating it..."
+#           gcloud deployment-manager deployments delete my-deployment --quiet
+#       fi
 
-      echo "Creating deployment: my-deployment"      
-      gcloud deployment-manager deployments create my-deployment --config deploy/scheduler-job.yaml
-
+#       echo "Creating deployment: my-deployment"      
+#       gcloud deployment-manager deployments create my-deployment --config deploy/scheduler-job.yaml
 
 
 
 timeout: '600s'
 
 substitutions:
-  _TARGET_URL: https://us-central1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/the-training/jobs/deploy-run-job-dev:run
-  _SCHEDULE: '* * * * *'
-  _TIMEZONE: 'UTC'
-  _HTTP_METHOD: 'POST'
+#  _TARGET_URL: https://us-central1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/the-training/jobs/deploy-run-job-dev:run
+#  _SCHEDULE: '* * * * *'
+#  _TIMEZONE: 'UTC'
+#  _HTTP_METHOD: 'POST'
   _SERVICE_ACCOUNT: 'diego-sa@the-training.iam.gserviceaccount.com'
 
 images:

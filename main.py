@@ -12,6 +12,8 @@ SLEEP_MS = os.getenv("SLEEP_MS", 0)
 FAIL_RATE = os.getenv("FAIL_RATE", 0)
 
 
+
+
 # Define main script
 def main(sleep_ms=0, fail_rate=0):
     """Program that simulates work using the sleep method and random failures.
@@ -20,7 +22,19 @@ def main(sleep_ms=0, fail_rate=0):
         sleep_ms: number of milliseconds to sleep
         fail_rate: rate of simulated errors
     """
+
+
     print(f"Starting Task #{TASK_INDEX}, Attempt #{TASK_ATTEMPT}...")
+
+    db_credentials = os.getenv("DB_CREDENTIALS")
+
+    if db_credentials:
+        credentials = json.loads(os.getenv("DB_CREDENTIALS"))
+        print("Database Host:", credentials["host"])
+    else:
+        print("Database credentials not loaded!!")
+
+
     # Simulate work by waiting for a specific amount of time
     time.sleep(float(sleep_ms) / 1000)  # Convert to seconds
 

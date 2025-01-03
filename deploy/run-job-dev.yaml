@@ -9,3 +9,9 @@ spec:
         spec:
           containers:
           - image: job-image
+          env:
+          - name: DB_CREDENTIALS
+          valueSource:
+            secretKeyRef:
+              name: demo-database-credentials # projects/880499718193/secrets/demo-database-credentials
+              version: latest       # Specify the version (use "latest" for the latest version)
