@@ -7,5 +7,14 @@ spec:
     spec:
       template:
         spec:
-          containers:
-           - image: job-image
+          serviceAccountName: ${SERVICE_ACCOUNT}
+          containers:          
+          - image: job-image
+            env:
+              - name: DEMO_URI
+                value: "https://demo.com"
+              - name: DB_CREDENTIALS
+                valueFrom:
+                  secretKeyRef:
+                    key: latest
+                    name: demo-database-credentials

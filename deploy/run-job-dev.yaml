@@ -7,11 +7,15 @@ spec:
     spec:
       template:
         spec:
-          containers:
+          serviceAccountName: ${SERVICE_ACCOUNT}
+          containers:          
           - image: job-image
-          env:
-          - name: DB_CREDENTIALS
-          valueSource:
-            secretKeyRef:
-              name: demo-database-credentials # projects/880499718193/secrets/demo-database-credentials
-              version: latest       # Specify the version (use "latest" for the latest version)
+            env:
+              - name: DEMO_URI
+                value: "https://dev.demo.com"
+              - name: DB_CREDENTIALS
+                valueFrom:
+                  secretKeyRef:
+                    key: latest
+                    name: demo-database-credentials
+            

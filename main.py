@@ -26,6 +26,9 @@ def main(sleep_ms=0, fail_rate=0):
 
     print(f"Starting Task #{TASK_INDEX}, Attempt #{TASK_ATTEMPT}...")
 
+    demo_uri = os.getenv("DEMO_URI")
+    print("Demo URI:", demo_uri)
+
     db_credentials = os.getenv("DB_CREDENTIALS")
 
     if db_credentials:
